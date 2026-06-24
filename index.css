@@ -1,0 +1,25 @@
+/*
+ * Cautus base reset
+ * Import this AFTER your @tailwind directives in the app's index.css.
+ *
+ * Uses direct hex values (not @apply) so this file has no dependency
+ * on any app's Tailwind config — it works as a plain CSS import.
+ */
+
+body {
+  background-color: #000000;   /* gray-950 */
+  color: #e6e8ec;              /* gray-200 */
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(88, 166, 255, 0.35); /* indigo-500 at 35% */
+  color: #fff;
+}
