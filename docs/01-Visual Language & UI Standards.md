@@ -308,75 +308,313 @@ All chart frames must have `overflow: hidden`. No horizontal scrollbars. Chart a
 
 ## 6. Visual System Audit
 
-### 6.1 Current State vs Target State
+*Produced: 2026-06-27 as Phase 3H Phase 0 deliverable. Based on full read of the approved handoff package and live codebase. Every value is exact — verified against source files, not estimated.*
+
+---
+
+### 6.0 Handoff Package Internal Discrepancy
+
+One discrepancy exists inside the handoff package itself and must be resolved before implementation:
+
+**Border radius: `design-system/tokens/spacing.css` vs `THEME_HANDOFF.md §4`**
+
+| Source | Values |
+|---|---|
+| `spacing.css` | `--r-sm: 9px` / `--r-md: 12px` / `--r-lg: 18px` / `--r-xl: 22px` / `--r-2xl: 26px` |
+| `THEME_HANDOFF.md §4` | 12px (controls) / 16px (cards) — explicitly states "this supersedes `r-lg:18/r-xl:22` in the tokens file" |
+| `tailwind.preset.js` (handoff) | `sm/DEFAULT/md: 12px` / `lg/xl: 16px` |
+
+**Resolution: THEME_HANDOFF.md §4 wins.** It explicitly overrides `spacing.css`. Use `12px` and `16px`. The `tailwind.preset.js` confirms this.
+
+**Card padding: `spacing.css` vs `THEME_HANDOFF.md §4`**
+
+| Source | Values |
+|---|---|
+| `spacing.css` | `--pad-card: 34px` / `--pad-feature: 40px` |
+| `THEME_HANDOFF.md §4` | Cards 22–24px / Signature Coach Card 30–36px |
+
+**Resolution: THEME_HANDOFF.md §4 wins** by same authority. Use 22–24px for neutral cards, 30–36px for the Coach Card.
+
+---
+
+### 6.1 Summary: Current vs Target
 
 | | **Current (live app)** | **Target (Phase 3H)** |
 |---|---|---|
-| **Canvas bg** | `#0d0d0d` (pure black) | `#0B1220` (cool navy) |
-| **Card surface** | `#121212` via `ink-bg-*` tokens | `#0F1A2C` via `gray-800` |
-| **Accent** | `#3b82f6` blue / `#58a6ff` indigo | `#2CB1BC` teal |
-| **Semantic positive** | `#22c55e` (bright green) | `#2F9E68` (muted green) |
-| **Semantic negative** | `#ef4444` (bright red) | `#C2536B` (muted rose-red) |
-| **Body font** | IBM Plex Mono (wrong) | Inter |
-| **Heading/statement font** | IBM Plex Sans or Space Grotesk — inconsistently applied | Space Grotesk (`font-display`) |
-| **Data font** | IBM Plex Mono (`font-mono`) — correct | IBM Plex Mono (`font-mono`) — no change |
-| **Radius** | Mixed: 14/18/20/22px | 12px (controls) / 16px (cards) only |
-| **Borders** | Solid gray colors or no border | Translucent slate (`rgba(148,163,184,0.12)`) |
-| **Token system** | Custom `ink-*` and `trade-*` in `cautus-insight/tailwind.config.ts` | Standard `gray-*` / `indigo-*` / `green-*` / `red-*` in `cautus-ui/tailwind.preset.js` |
-| **Font utilities** | `font-grotesk`, `font-inter`, `font-sans` (IBM Plex Sans) | `font-display` (Space Grotesk), `font-sans` (Inter), `font-mono` |
-| **Font loading** | Inline `style={{ fontFamily }}` scattered across components | Tailwind utility classes only |
+| Canvas background | `#0d0d0d` pure black (`ink-bg`) | `#0B1220` cool navy (`gray-900`) |
+| Card surface | `#121212` (`ink-1`) | `#0F1A2C` (`gray-800`) |
+| Primary accent | `#3b82f6` blue (`trade-select`) | `#2CB1BC` teal (`indigo-600`) |
+| Semantic positive | `#22c55e` bright green (`trade-profit`) | `#2F9E68` muted green (`green-400`) |
+| Semantic negative | `#ef4444` bright red (`trade-loss`) | `#C2536B` muted rose-red (`red-400`) |
+| Caution | `#fbbf24` amber (`trade-warn`) | `#C0A062` gold (`yellow-400`) |
+| Default body font | IBM Plex Mono (monospace everywhere) | Inter (`font-sans`) |
+| Coaching statement font | IBM Plex Sans or Space Grotesk — inconsistent | Space Grotesk (`font-display`) |
+| Data/label font | IBM Plex Mono (`font-mono`) — correct | IBM Plex Mono (`font-mono`) — no change |
+| Border radius | Mixed: 18/22px (preset) + 14/20px (inline) | 12px controls / 16px cards — two values only |
+| Borders | Mostly solid opaque grays (`#1a1a1a`, `#242424`) | Translucent slate (e.g. `rgba(148,163,184,0.12)`) |
+| Token system | `ink-*` / `trade-*` custom tokens in app config | Standard `gray-*` / `indigo-*` / `green-*` / `red-*` in shared preset |
+| Token breadth | 366 usages across 73 files (210 ink-*, 93 trade-*, 73 font-*) | Progressive migration over 3H-1 through 3H-4 |
 
-### 6.2 Gap Analysis
+---
 
-**Gap 1 — Token System (High Impact, Low Risk)**
-- `cautus-ui/tailwind.preset.js` uses old pure-black ramp and indigo-as-blue
-- `cautus-insight/frontend/tailwind.config.ts` defines custom `ink-*` / `trade-*` tokens that override the preset
-- Fix: replace `tailwind.preset.js` with the handoff values; audit `tailwind.config.ts` for overrides to remove
+### 6.2 File 1: `cautus-ui/tailwind.preset.js` — Precise Token Diff
 
-**Gap 2 — Default Body Font (High Impact, Visually Obvious)**
-- Body renders IBM Plex Mono everywhere — most noticeable difference vs the mock
-- Fix: update `index.css` base reset to set Inter as body; apply `font-display` and `font-mono` explicitly
+Every token that changes. Names are preserved so existing Tailwind classes automatically reskin.
 
-**Gap 3 — Inline Font Styles (Medium Impact, Tedious)**
-- Many components use `style={{ fontFamily: '"IBM Plex Sans"...' }}` — not affected by the preset swap
-- Fix: replace with `className="font-sans"` or `className="font-display"` as appropriate
+**Surface / gray ramp**
 
-**Gap 4 — Custom Font Utilities (Low Risk, Cleanup)**
-- `font-grotesk` and `font-inter` in `tailwind.config.ts` overlap with the new preset's `font-display` / `font-sans`
-- Fix: remove custom utilities and update usages after preset lands
-
-**Gap 5 — Semantic Color Brightness (Visual, Low Risk)**
-- Current green/red are bright web colors; target values are softer
-- Handled entirely by the token swap — no component changes needed
-
-**Gap 6 — Shared Primitives Missing (Medium Impact)**
-- `CoachCard` does not exist; each coaching surface has its own inline styling
-- `StatusTag` does not exist; execution quality labels use ad-hoc chips
-- Fix: build both in `cautus-ui/src/components/` in Phase 3H Phase 2
-
-**Gap 7 — Chart Overflow (Low Frequency, Easy Fix)**
-- Some chart containers lack `overflow: hidden`
-- Fix: add `overflow-hidden` to chart frame wrappers in Phase 3H Phase 4
-
-### 6.3 Files Requiring Changes
-
-| File | Change Type | Phase |
+| Token | Current | Target |
 |---|---|---|
-| `cautus-ui/tailwind.preset.js` | Replace color ramp, accent, radii, border tokens | 3H-1 |
-| `cautus-insight/frontend/src/index.css` | Merge theme-fonts.css (Google import, CSS vars, base reset) | 3H-1 |
-| `cautus-insight/frontend/tailwind.config.ts` | Audit and remove overrides conflicting with new preset | 3H-1 |
-| `cautus-ui/src/components/CoachCard.tsx` | Create new shared primitive | 3H-2 |
-| `cautus-ui/src/components/StatusTag.tsx` | Create new shared primitive | 3H-2 |
-| `cautus-ui/src/components/Card.tsx` | Create or update neutral card primitive | 3H-2 |
-| `cautus-insight/frontend/src/components/AccountLayout.tsx` | Active nav pill — teal fill + border | 3H-2 |
-| `cautus-insight/frontend/src/components/ContextBar.tsx` | Period dropdown — navy panel, teal active row | 3H-2 |
-| `cautus-insight/frontend/src/components/WordMark.tsx` | Space Grotesk + teal INSIGHT | 3H-2 |
-| `cautus-insight/frontend/src/pages/HeroInsight.tsx` | Adopt CoachCard | 3H-2 |
-| `cautus-insight/frontend/src/components/CoachingPanel.tsx` | Adopt CoachCard | 3H-2 |
-| All pages with inline `style={{ fontFamily }}` | Replace with Tailwind classes | 3H-3 |
-| All pages: typography role pass | prose → `font-sans`, statements → `font-display`, data → `font-mono` | 3H-3 |
-| `MaeMfeScatter.tsx`, `HeatmapChart.tsx`, `HoldTimeChart.tsx` | `overflow-hidden` on frames | 3H-4 |
-| All pages: accent audit | Remove non-conforming color usage | 3H-4 |
+| `gray-950` | `#000000` | `#070B14` |
+| `gray-900` | `#06080c` | `#0B1220` |
+| `gray-850` | `#0b0f15` | `#0C1424` |
+| `gray-800` | `#11161e` | `#0F1A2C` |
+| `gray-750` | `#1a212c` | `#16223A` |
+| `gray-700` | `#242c38` | `#233044` |
+| `gray-600` | `#4a5160` | `#475569` |
+| `gray-500` | `#6b7280` | `#64748B` |
+| `gray-400` | `#aab2bf` | `#94A3B8` |
+| `gray-300` | `#c9d1d9` | `#CBD5E1` |
+| `gray-200` | `#e6e8ec` | `#F0F4F8` |
+| `gray-100` | `#f0f2f5` | `#F8FAFC` |
+
+**Accent (indigo ramp — now teal)**
+
+| Token | Current | Target |
+|---|---|---|
+| `indigo-700` | `#1f6feb` (deep blue) | `#1F8A93` (deep teal) |
+| `indigo-600` | `#2c7cf0` (blue) | `#2CB1BC` (teal — THE accent) |
+| `indigo-500` | `#58a6ff` (light blue) | `#3EC8D2` (light teal) |
+| `indigo-400` | `#79b8ff` (pale blue) | `#6FD6DE` (pale teal) |
+
+**Semantic**
+
+| Token | Current | Target |
+|---|---|---|
+| `green-400` | `#3fb950` (bright) | `#2F9E68` (muted) |
+| `green-500` | `#2ea043` | `#277F54` |
+| `yellow-400` | `#d29922` (amber) | `#C0A062` (gold) |
+| `yellow-500` | `#b08800` | `#A4854F` |
+| `red-400` | `#f85149` (bright red) | `#C2536B` (muted rose) |
+| `red-500` | `#da3633` | `#A8455A` |
+
+**Remove from preset**
+
+| Token | Reason |
+|---|---|
+| `orange` ramp | Not in handoff; no assigned semantic role |
+| `violet` ramp | Not in handoff; no assigned semantic role |
+
+**Keep unchanged**
+
+| Token | Notes |
+|---|---|
+| `cyan` ramp | Handoff marks as optional alias; keep |
+
+**Add to preset (currently missing)**
+
+| Addition | Value | Purpose |
+|---|---|---|
+| `fontFamily.display` | `['"Space Grotesk"', 'system-ui', 'sans-serif']` | `font-display` utility |
+| `fontFamily.sans` | `['"Inter"', 'system-ui', 'sans-serif']` | `font-sans` utility (replaces IBM Plex Sans) |
+| `fontFamily.mono` | `['"IBM Plex Mono"', '"JetBrains Mono"', ...]` | Move from app config to preset; IBM Plex Mono first |
+| `borderRadius.sm` | `12px` | buttons, chips |
+| `borderRadius.DEFAULT` | `12px` | |
+| `borderRadius.md` | `12px` | |
+| `borderRadius.lg` | `16px` | cards, panels |
+| `borderRadius.xl` | `16px` | |
+| `borderColor.hair` | `rgba(148,163,184,0.12)` | default card border |
+| `borderColor.divide` | `rgba(148,163,184,0.08)` | section dividers |
+| `borderColor.ghost` | `rgba(148,163,184,0.22)` | ghost buttons, chips |
+| `borderColor.accent` | `rgba(44,177,188,0.20)` | Signature Coach Card only |
+
+---
+
+### 6.3 File 2: `cautus-insight/frontend/tailwind.config.ts` — Precise Changes
+
+**Font family overrides — Phase 3H-1**
+
+| Entry | Action | Reason |
+|---|---|---|
+| `fontFamily.sans: ['"IBM Plex Sans"']` | **Remove** | Preset now defines `font-sans` as Inter |
+| `fontFamily.grotesk: ['"Space Grotesk"']` | **Keep for now**, remove in 3H-3 | 29 usages of `font-grotesk` across codebase; remove after migrating to `font-display` |
+| `fontFamily.inter: ['"Inter"']` | **Keep for now**, remove in 3H-3 | 13 usages of `font-inter`; remove after migrating to `font-sans` |
+| `fontFamily.mono: ['"IBM Plex Mono"']` | **Remove** | Moved to preset; no longer needs app-level override |
+
+**`ink-*` custom colors — Phase 3H-1 through 3H-4**
+
+210 usages across the codebase. Do not remove in Phase 1 — this would break every screen. Migrate away progressively in 3H-2 through 3H-4 as components adopt the new token names.
+
+| `ink-*` token | Current value | Target token (after migration) |
+|---|---|---|
+| `ink-bg` | `#0d0d0d` | `gray-900` (`#0B1220`) |
+| `ink-1` | `#121212` | `gray-800` (`#0F1A2C`) |
+| `ink-2` | `#0e0e0e` | `gray-800` (`#0F1A2C`) |
+| `ink-border` | `#1a1a1a` | `border-hair` / `gray-700` |
+| `ink-mid` | `#242424` | `gray-700` (`#233044`) |
+| `ink-strong` | `#2e2e2e` | `gray-700` (`#233044`) |
+| `ink-primary` | `#e5e5e5` | `gray-200` (`#F0F4F8`) |
+| `ink-secondary` | `#b0b0b0` | `gray-300` (`#CBD5E1`) |
+| `ink-muted` | `#787878` | `gray-400` (`#94A3B8`) |
+
+**`trade-*` custom colors — update values in Phase 3H-1, remove in 3H-4**
+
+93 usages. The token names can stay during migration; update the values now so they stay visually aligned with the new system.
+
+| `trade-*` token | Current value | Updated value (Phase 3H-1) | Target token (after 3H-4) |
+|---|---|---|---|
+| `trade-profit` | `#22c55e` | `#2F9E68` | `green-400` |
+| `trade-loss` | `#ef4444` | `#C2536B` | `red-400` |
+| `trade-select` | `#3b82f6` | `#2CB1BC` | `indigo-600` |
+| `trade-warn` | `#fbbf24` | `#C0A062` | `yellow-400` |
+| `trade-support` | `#2dd4bf` | remove | — |
+| `trade-resist` | `#f59e0b` | remove | — |
+
+---
+
+### 6.4 File 3: `cautus-insight/frontend/src/index.css` — Precise Changes
+
+**Current body declaration (line 31) — replace:**
+```css
+/* CURRENT — wrong */
+body {
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* TARGET */
+body {
+  font-family: var(--font-body); /* Inter */
+  background-color: #0B1220;
+  color: #F0F4F8;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+}
+```
+
+**Add Google Fonts import (top of file, before @tailwind directives):**
+```css
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+```
+
+**Add CSS custom properties to `:root`:**
+```css
+:root {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  --c-accent:     #2CB1BC;
+  --c-positive:   #2F9E68;
+  --c-negative:   #C2536B;
+  --c-caution:    #C0A062;
+}
+```
+
+**Add to `@layer base`:**
+```css
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: #2CB1BC;
+  color: #0B1220;
+}
+```
+
+**Update scrollbar color (currently `#2a2a2a` solid):**
+```css
+/* CURRENT */
+scrollbar-color: #2a2a2a transparent;
+::-webkit-scrollbar-thumb { background: #2a2a2a; }
+
+/* TARGET */
+scrollbar-color: rgba(148,163,184,0.18) transparent;
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.18); }
+```
+
+**`cautusRise` animation — behaviour change:**
+
+Current implementation uses `opacity: 0 → 1` (content hidden until animation fires — breaks with `prefers-reduced-motion` or if animation is interrupted). Handoff specifies translate-only so content is never hidden:
+
+```css
+/* CURRENT — hides content */
+@keyframes cautusRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* TARGET — content always visible */
+@keyframes cautusRise {
+  from { transform: translateY(16px); }
+  to   { transform: none; }
+}
+.landing-reveal { opacity: 0; } /* REMOVE this rule */
+```
+
+---
+
+### 6.5 What the Phase 3H-1 Token Swap Fixes Automatically
+
+After the three file changes above (preset + tailwind.config + index.css), the following reskins for free — no component edits:
+
+- All `bg-gray-*` / `text-gray-*` / `border-gray-*` → navy surfaces and text ramp
+- All `bg-indigo-*` / `text-indigo-*` / `border-indigo-*` → teal (automatically applying to active nav dot, period dropdown active dot, any teal text)
+- All `green-*` / `yellow-*` / `red-*` → softer semantic values
+- `rounded-lg` / `rounded-xl` → both 16px (were 18/22px)
+- `rounded-sm` / `rounded-md` → both 12px
+- Default body font → Inter
+- `::selection` → teal
+
+---
+
+### 6.6 What Phase 3H-1 Does NOT Fix (Requires Manual Work)
+
+| Issue | Count | Phase |
+|---|---|---|
+| `ink-*` token usages (custom dark values, not auto-updated) | 210 | 3H-2 through 3H-4 |
+| `trade-*` token usages — values updated in 3H-1 but names still non-standard | 93 | 3H-4 |
+| Inline `style={{ fontFamily: ... }}` props | 21 instances across 10 files | 3H-3 |
+| Inline `style={{ background: '#...' }}` / `style={{ border: '...' }}` hard-coded colors | ~140 instances across 23 files | 3H-3 / 3H-4 |
+| `font-grotesk` usages (custom utility, not `font-display`) | 29 | 3H-3 |
+| `font-inter` usages (custom utility, not `font-sans`) | 13 | 3H-3 |
+| Amber left-border pattern on `TodaysFocus`, `PracticeRule`, `HeroInsight` | 3 components | 3H-2 (CoachCard) |
+| `ExecutionSummary` inline `gradeColor` dict | 1 component | 3H-2 (StatusTag) |
+| Active nav state — no teal indicator | `AccountLayout.tsx` | 3H-2 |
+| Period dropdown panel color and active row | `ContextBar.tsx` | 3H-2 |
+| WordMark tracking value (`0.14em` → `0.42em` on INSIGHT) | `WordMark.tsx` | 3H-2 |
+| Chart `overflow: hidden` | 4 chart components | 3H-4 |
+| `cautusGlow` animation (not in handoff spec) | `index.css` | 3H-4 audit pass |
+
+---
+
+### 6.7 Files Requiring Changes by Phase
+
+| File | Change | Phase |
+|---|---|---|
+| `cautus-ui/tailwind.preset.js` | Full token replacement per §6.2 | 3H-1 |
+| `cautus-insight/frontend/tailwind.config.ts` | Font overrides, trade-* value updates, ink-* migration start | 3H-1 |
+| `cautus-insight/frontend/src/index.css` | Font import, CSS vars, body font, h1/h2/h3, selection, scrollbar, animation fix | 3H-1 |
+| `cautus-ui/src/components/CoachCard.tsx` | Create — replaces HeroInsight / TodaysFocus / PracticeRule inline styling | 3H-2 |
+| `cautus-ui/src/components/StatusTag.tsx` | Create — replaces gradeColor dict + ad-hoc pills | 3H-2 |
+| `cautus-ui/src/components/Card.tsx` | Create — neutral card primitive | 3H-2 |
+| `components/HeroInsight.tsx` | Adopt CoachCard | 3H-2 |
+| `components/TodaysFocus.tsx` | Adopt CoachCard | 3H-2 |
+| `components/PracticeRule.tsx` | Adopt CoachCard | 3H-2 |
+| `components/ExecutionSummary.tsx` | Adopt Card + StatusTag | 3H-2 |
+| `pages/AccountLayout.tsx` | Active nav pill — teal fill + border | 3H-2 |
+| `components/ContextBar.tsx` | Dropdown panel + active row | 3H-2 |
+| `components/WordMark.tsx` | `font-display`, INSIGHT tracking `0.42em` | 3H-2 |
+| 10 files with inline `fontFamily` props | Replace with `font-sans` / `font-display` / `font-mono` | 3H-3 |
+| 29 `font-grotesk` usages → `font-display` | Rename after removing custom utility | 3H-3 |
+| 13 `font-inter` usages → `font-sans` | Rename after removing custom utility | 3H-3 |
+| 23 files with inline bg/border/color styles | Per-screen pass against mock | 3H-4 |
+| `MaeMfeScatter.tsx`, `HeatmapChart.tsx`, `HoldTimeChart.tsx`, `CandleChart.tsx` | `overflow-hidden` on chart frames | 3H-4 |
+| All screens: `ink-*` → new token names | Final migration | 3H-4 |
+| All screens: `trade-*` → new token names | Final migration | 3H-4 |
+| `tailwind.config.ts` | Remove `font-grotesk`, `font-inter`, `ink-*`, `trade-*` entries | 3H-4 (after full migration) |
 
 ---
 
