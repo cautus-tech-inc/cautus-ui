@@ -6,7 +6,12 @@
 >
 > **Audience:** Engineering, Product, Design
 >
-> **Source of truth:** This document, together with the approved handoff package (`~/Downloads/handoff/`), defines the visual language of Cautus Insight. Every UI decision should trace back to one of these sources.
+> **Source hierarchy:**
+> 1. Approved handoff package (`~/Downloads/handoff/`) — design authority
+> 2. This document — engineering authority
+> 3. Production implementation
+>
+> If a conflict exists, the handoff package wins. This document must be updated to match the handoff before implementation begins.
 
 ---
 
