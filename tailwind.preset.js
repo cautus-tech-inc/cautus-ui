@@ -1,40 +1,75 @@
-/** @type {import('tailwindcss').Config} */
+/**
+ * Cautus Insight — Tailwind preset (THEME: navy + teal)
+ *
+ * Token NAMES are identical to the previous preset so existing utility
+ * classes (bg-gray-800, text-gray-400, text-indigo-500 …) reskin with
+ * zero markup changes. The `indigo` ramp is now TEAL — audit every
+ * indigo-* usage against the accent rule (most should become slate
+ * gray-400/500; only "Insight speaking" surfaces stay teal).
+ *
+ * @type {import('tailwindcss').Config}
+ */
 export default {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // Words — display and body
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'], // headlines, coaching statements, titles, wordmark
+        sans:    ['"Inter"', 'system-ui', 'sans-serif'],         // body copy, UI, buttons, nav
+        // Numbers + labels (already the app default — keep IBM Plex Mono first)
+        mono:    ['"IBM Plex Mono"', '"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
+
       colors: {
-        // Surface layers — dark terminal aesthetic
+        // Surface ramp (cool navy) — used for both surfaces AND the text ramp.
         gray: {
-          950: '#000000',
-          900: '#06080c',
-          850: '#0b0f15',
-          800: '#11161e',
-          750: '#1a212c',
-          700: '#242c38',
-          600: '#4a5160',
-          500: '#6b7280',
-          400: '#aab2bf',
-          300: '#c9d1d9',
-          200: '#e6e8ec',
-          100: '#f0f2f5',
+          950: '#070B14', // outer canvas / page backdrop
+          900: '#0B1220', // app background
+          850: '#0C1424', // context bar, table headers, chart insets
+          800: '#0F1A2C', // cards, panels (default raised surface)
+          750: '#16223A', // raised surfaces (dropdowns, menus)
+          700: '#233044', // raised borders / hover fills
+          600: '#475569', // faint text, disabled
+          500: '#64748B', // dim text, eyebrows, captions
+          400: '#94A3B8', // muted body text
+          300: '#CBD5E1', // strong body text on dark cards
+          200: '#F0F4F8', // near-primary text
+          100: '#F8FAFC', // primary headings / high emphasis
         },
-        // Primary accent
+
+        // Primary accent — TEAL (was indigo/blue).
+        // Use ONLY for: Signature Coach Card, active nav pill, active period row.
         indigo: {
-          700: '#1f6feb',
-          600: '#2c7cf0',
-          500: '#58a6ff',
-          400: '#79b8ff',
+          700: '#1F8A93',
+          600: '#2CB1BC', // THE accent
+          500: '#3EC8D2',
+          400: '#6FD6DE',
         },
-        // Semantic / status colors
-        green:  { 400: '#3fb950', 500: '#2ea043' },
-        yellow: { 400: '#d29922', 500: '#b08800' },
-        orange: { 400: '#f0883e', 500: '#d4710d' },
-        red:    { 400: '#f85149', 500: '#da3633' },
-        violet: { 400: '#a371f7', 500: '#8b5cf6' },
-        cyan:   { 400: '#39c5cf', 500: '#22a0aa' },
+
+        // Semantic — DATA ONLY, never decorative.
+        green:  { 400: '#2F9E68', 500: '#277F54' }, // positive money / connected status
+        red:    { 400: '#C2536B', 500: '#A8455A' }, // negative money only
+        yellow: { 400: '#C0A062', 500: '#A4854F' }, // caution / developing (gold)
+
+        // Optional alias (same hue as indigo-500).
+        cyan: { 400: '#3EC8D2', 500: '#22A0AA' },
+      },
+
+      borderRadius: {
+        // Two values only — per THEME_HANDOFF.md §4 (supersedes spacing.css).
+        sm:      '12px', // buttons, chips, small controls
+        DEFAULT: '12px',
+        md:      '12px',
+        lg:      '16px', // cards, panels, dropdowns
+        xl:      '16px',
+      },
+
+      borderColor: {
+        // Hairlines are translucent slate — never solid grays.
+        hair:   'rgba(148,163,184,0.12)', // default card border
+        divide: 'rgba(148,163,184,0.08)', // section dividers
+        ghost:  'rgba(148,163,184,0.22)', // ghost buttons, chips
+        accent: 'rgba(44,177,188,0.20)',  // Signature Coach Card only
       },
     },
   },
