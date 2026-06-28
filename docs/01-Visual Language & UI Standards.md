@@ -1,1241 +1,552 @@
-# Cautus Insight — Design System
+# Cautus Insight — Visual Language & UI Standards
 
-> Version: 1.1
+> **Version:** 2.0 (Phase 3H)
 >
-> Status: Design Standard
+> **Status:** Approved — pending Phase 3H implementation
 >
-> Audience:
-> - Product
-> - Engineering
-> - Design
+> **Audience:** Engineering, Product, Design
 >
-> This document defines the visual language of Cautus Insight.
+> **Source of truth:** This document, together with the approved handoff package (`~/Downloads/handoff/`), defines the visual language of Cautus Insight. Every UI decision should trace back to one of these sources.
+
+---
+
+## 1. Core Principle
+
+Every visual decision must make the trader feel like an experienced mentor reviewed their trades before they opened the application.
+
+The product is a trading coach, not a dashboard. The visual system exists to support that posture: calm, clear, authoritative. It should feel like a well-lit meeting room — not a trading terminal or a generic analytics product.
+
+> **The single most important principle:** Accent communicates meaning, not decoration.
 >
-> It should be referenced before implementing any UI changes.
+> - **Teal** = Insight speaking (coach voice, active selection)
+> - **Green** = positive money
+> - **Red** = negative money
+> - **Gold** = caution / developing pattern
+> - **Slate** = everything else
 >
-> **Theme:** Cautus Insight is dark-first. All color specifications in this document reflect the dark theme. A light theme is not planned.
+> If a color isn't doing one of those jobs, it should be removed. When in doubt, remove it.
 
 ---
 
-# 1. Purpose
+## 2. Color System
 
-This document defines the **visual language, interaction standards, and communication style** of Cautus Insight.
+### 2.1 Surface Ramp (Cool Navy)
 
-Together with the other core documents, it completes the product definition:
+The surface ramp uses cool navy-black tones. All values are intentionally blue-shifted — never warm, never pure black.
 
-* **PRD** defines **what** the product does.
-* **Architecture** defines **how** it is built.
-* **Review Engine** defines **how** it reasons.
-* **UX Architecture** defines **how** traders experience it.
-* **Visual Language & UI Standards** defines **how** that experience looks, feels, and communicates.
-
-Its purpose is to ensure every screen feels like part of the same coherent product.
-
-Every visual decision—from typography and spacing to color, layout, and copywriting—should reinforce the same product philosophy.
-
-**Every design decision in Cautus Insight should make the trader feel like an experienced mentor reviewed their trades before they opened the application.**
-
-
----
-
-# 2. Product Personality
-
-If Bloomberg Terminal had an experienced trading mentor built into it, it would feel like Cautus Insight.
-
-The product should feel:
-
-• Calm
-
-• Professional
-
-• Analytical
-
-• Deliberate
-
-• Quietly intelligent
-
-Never:
-
-• Flashy
-
-• Gamified
-
-• Sales-oriented
-
-• Social-media inspired
-
-• Fintech marketing
-
-The product should earn trust through clarity rather than visual excitement.
-
----
-
-# 3. Design Philosophy
-
-## Coaching before dashboards
-
-Every screen should feel like a review conversation.
-
-Not a collection of widgets.
-
----
-
-## Insight before metrics
-
-The first thing users should read is the conclusion.
-
-Metrics support conclusions.
-
-They do not replace them.
-
----
-
-## Calm confidence
-
-The interface should never compete for attention.
-
-The product should direct attention.
-
-Whitespace is preferred over density.
-
-Subtle emphasis is preferred over strong emphasis.
-
----
-
-## Reduce cognitive load
-
-The user should never search for the answer.
-
-The application should present the answer first.
-
-Every visual decision should reduce the amount of interpretation required.
-
----
-
-## Consistency over creativity
-
-A consistent interface is more valuable than a clever one.
-
-If two screens solve the same problem, they should look and behave similarly.
-
----
-
-# 4. Visual Hierarchy
-
-Every screen should follow the same reading order.
-
-Level 1
-
-Hero Insight
-
-↓
-
-Level 2
-
-Primary Recommendation
-
-↓
-
-Level 3
-
-Supporting Evidence
-
-↓
-
-Level 4
-
-Metrics
-
-↓
-
-Level 5
-
-Raw Data
-
-The hierarchy should never be inverted.
-
-Charts should never appear before the conclusion they support.
-
-Tables should never dominate the screen.
-
-The trader should understand the page before reading any numbers.
-
----
-
-# 5. Information Density
-
-Cautus Insight is an analytical application.
-
-It is not an information-dense application.
-
-Each page should communicate one major lesson.
-
-Avoid placing multiple equally important elements on the same screen.
-
-The eye should naturally know where to look first.
-
-If everything is emphasized, nothing is emphasized.
-
-# 6. Typography
-
-Typography communicates hierarchy.
-
-Not decoration.
-
-Font size, weight, and spacing should always indicate importance.
-
-Never increase font size simply to draw attention.
-
----
-
-## Font Family
-
-Primary (UI text)
-
-Inter / System UI fonts
-
-Primary (data values, monospaced)
-
-IBM Plex Mono
-
-Typography should prioritize readability over personality. Monospaced fonts are used for prices, P&L values, and other numeric data to ensure vertical alignment in tables.
-
----
-
-## Typography Scale
-
-### Display
-
-Purpose:
-
-Reserved for page titles only.
-
-Examples:
-
-- Overview
-- Trade Cycles
-- Execution Quality
-
-Recommended:
-
-32px
-
-Weight:
-
-Bold (700)
-
-Usage:
-
-Once per page.
-
----
-
-### Hero Insight
-
-Purpose:
-
-The most important text on every screen.
-
-This is the first thing the trader reads.
-
-Recommended:
-
-24px
-
-Weight:
-
-Semibold (600)
-
-Maximum:
-
-Three sentences
-
-Never:
-
-- exceed four lines
-- include bullet lists
-- become a metrics table
-
----
-
-### Section Heading
-
-Purpose:
-
-Introduce major sections.
-
-Examples:
-
-- Today's Focus
-- Pattern Summary
-- Objective Facts
-
-Recommended:
-
-18px
-
-Weight:
-
-Semibold
-
----
-
-### Card Title
-
-Purpose:
-
-Identify reusable cards.
-
-Examples:
-
-- Exit Efficiency
-- Entry Quality
-- Biggest Leak
-
-Recommended:
-
-16px
-
-Weight:
-
-Medium
-
----
-
-### Body
-
-Purpose:
-
-Primary reading text.
-
-Recommended:
-
-15–16px
-
-Weight:
-
-Regular
-
-This should be the default text size throughout the application.
-
----
-
-### Supporting Text
-
-Purpose:
-
-Descriptions
-
-Recommendations
-
-Context
-
-Recommended:
-
-14px
-
-Color:
-
-Muted
-
----
-
-### Metadata
-
-Purpose:
-
-Labels
-
-Dates
-
-Secondary information
-
-Recommended:
-
-12–13px
-
-Color:
-
-Subtle gray
-
-Metadata should never compete visually with conclusions.
-
----
-
-# 7. Color System
-
-Color communicates meaning.
-
-Never decoration.
-
-Most of the interface should remain neutral.
-
-Cautus Insight uses a dark-first color system. The background is near-black. Text is light. Color is used sparingly and always semantically.
-
----
-
-## Neutral Palette
-
-The following token names map to the Tailwind config (`tailwind.config.js`):
-
-| Token | Hex | Purpose |
+| Token | Value | Role |
 |---|---|---|
-| `ink-bg` | `#0a0a0a` | Page background |
-| `ink-1` | `#0e0e0e` | Card backgrounds, table body |
-| `ink-border` | `#1a1a1a` | Borders, dividers |
-| `ink-strong` | `#262626` | Elevated surfaces, active nav items |
-| `ink-primary` | `#f0f0f0` | Primary text, headings, key values |
-| `ink-secondary` | `#a0a0a0` | Secondary text, labels, descriptions |
-| `ink-muted` | `#606060` | Tertiary text, placeholders, timestamps |
+| `gray-950` | `#070B14` | Outer canvas / page backdrop |
+| `gray-900` | `#0B1220` | App background |
+| `gray-850` | `#0C1424` | Context bar, table headers, chart insets |
+| `gray-800` | `#0F1A2C` | Cards, panels (default raised surface) |
+| `gray-750` | `#16223A` | Dropdowns, menus (elevated) |
+| `gray-700` | `#233044` | Raised borders, hover fills |
 
-90% of the interface should use neutral tokens.
+### 2.2 Text Ramp
 
----
-
-## Semantic Colors
-
-### Green — Positive Outcome
-
-Token: `trade-profit` (`#22c55e`)
-
-Meaning:
-
-- Profitable trade
-- Improving habit
-- Strong execution
-- Well-executed dimension grade
-
-Never use green for decoration or navigation.
-
----
-
-### Red — Negative Outcome
-
-Token: `trade-loss` (`#ef4444`)
-
-Meaning:
-
-- Loss
-- Recurring mistake that needs attention
-- Poorly-executed dimension grade
-
-Never use red for page emphasis or decorative borders.
-
----
-
-### Amber — Coaching Opportunity
-
-Token: `trade-warn` (`#f59e0b`)
-
-Meaning:
-
-- Mixed execution
-- Coaching recommendation
-- Pattern flagged for improvement
-
-Amber should feel instructional, not alarming.
-
----
-
-### Blue — Navigation and Selection
-
-Token: `trade-select` (`#3b82f6`)
-
-Meaning:
-
-- Selected trade row
-- Active navigation item
-- Interactive element highlight
-
-Blue should never communicate trading performance or outcome.
-
----
-
-### Additional Semantic Tokens
-
-| Token | Hex | Usage |
+| Token | Value | Role |
 |---|---|---|
-| `trade-resist` | `#a78bfa` | Premarket indicator badge |
+| `gray-100` | `#F8FAFC` | Primary headings, high emphasis |
+| `gray-200` | `#F0F4F8` | Near-primary body text |
+| `gray-300` | `#CBD5E1` | Strong body on dark cards |
+| `gray-400` | `#94A3B8` | Muted body text, secondary copy |
+| `gray-500` | `#64748B` | Dim text, eyebrows, captions |
+| `gray-600` | `#475569` | Faint text, disabled, fine print |
+
+### 2.3 Accent — Teal (Insight Speaking)
+
+`indigo-600` (`#2CB1BC`) is the one accent in the product. It appears in exactly three contexts:
+1. The Signature Coach Card border and gradient wash
+2. The active navigation pill
+3. The active review-period row in the dropdown
+
+Nothing else uses teal. Not icons, not headings, not decorative borders.
+
+| Token | Value | Role |
+|---|---|---|
+| `indigo-600` | `#2CB1BC` | THE accent — use sparingly |
+| `indigo-500` | `#3EC8D2` | Lighter teal (hover state) |
+| `indigo-700` | `#1F8A93` | Darker teal (pressed state) |
+| `indigo-400` | `#6FD6DE` | Lightest teal (rarely needed) |
+
+Derived accent values (CSS vars / inline only, not Tailwind classes):
+- Soft fill: `rgba(44,177,188,0.14)` — icon chips, tint fills
+- Card border: `rgba(44,177,188,0.20)` — Signature Coach Card
+- Accent glow: `rgba(44,177,188,0.16)` — ambient radial (one Coach card only)
+
+### 2.4 Semantic Colors (Data Only)
+
+These exist to communicate trade outcomes. They are never used decoratively.
+
+| Token | Value | Exact role |
+|---|---|---|
+| `green-400` | `#2F9E68` | Winning trade P&L, positive balance, Connected status |
+| `green-500` | `#277F54` | Darker green (pressed/hover) |
+| `red-400` | `#C2536B` | Losing trade P&L, negative money **only** |
+| `red-500` | `#A8455A` | Darker red |
+| `yellow-400` | `#C0A062` | Caution / Developing pattern (gold) |
+| `yellow-500` | `#A4854F` | Darker gold |
+
+### 2.5 Hairlines & Borders
+
+All borders are translucent slate — never solid gray. This keeps surfaces feeling light even in a dark environment.
+
+| Token | Value | Role |
+|---|---|---|
+| `border-hair` | `rgba(148,163,184,0.12)` | Default card border |
+| `border-divide` | `rgba(148,163,184,0.08)` | Section dividers |
+| `border-ghost` | `rgba(148,163,184,0.22)` | Ghost buttons, chips, strong borders |
+| `border-accent` | `rgba(44,177,188,0.20)` | Signature Coach Card only |
 
 ---
 
-### Purple
+## 3. Typography
 
-Reserved for future AI-assisted insights if introduced.
+### 3.1 Three Roles, Three Families
 
-Do not use elsewhere.
+Typography is the primary tool for communicating hierarchy. There are exactly three font roles and they do not mix.
 
----
+| Role | Family | Tailwind Class | Weight | Tracking |
+|---|---|---|---|---|
+| Display | Space Grotesk | `font-display` | 600 | -0.02em |
+| Body / UI | Inter | `font-sans` | 400 / 500 / 600 | normal |
+| Data / Labels | IBM Plex Mono | `font-mono` | 400 / 500 | see below |
 
-# 8. Spacing
+**Rule of thumb: words = `font-display` / `font-sans`, numbers & labels = `font-mono`.**
 
-Whitespace is a feature.
+If you are choosing between display and sans: use `font-display` for coaching statements, headings, and card titles. Use `font-sans` for everything else — descriptions, button labels, nav items, form fields, body copy.
 
-Not wasted space.
+Never use IBM Plex Mono for prose. Never use Inter or Space Grotesk for prices, P&L, or counts.
 
-Spacing communicates grouping.
+### 3.2 Type Scale
 
----
+**Display scale (Space Grotesk, `font-display`)**
 
-Spacing Scale
+| Name | Size | Line Height | Use |
+|---|---|---|---|
+| Hero coaching statement | 27–29px | 1.30 | CoachCard hero text |
+| h2 / card headline | 21px | 1.25 | Major card titles |
+| h3 / section title | 18px | 1.30 | Section headings |
 
-4
+**Body scale (Inter, `font-sans`)**
 
-8
+| Name | Size | Line Height | Use |
+|---|---|---|---|
+| Lead | 16–18px | 1.65 | Hero descriptions |
+| Body | 14–15px | 1.65 | Default copy, list items |
+| Small | 13px | 1.60 | Secondary descriptions |
 
-12
+**Label / mono scale (IBM Plex Mono, `font-mono`, UPPERCASE, wide tracking)**
 
-16
+| Name | Size | Tracking | Use |
+|---|---|---|---|
+| Eyebrow | 10–11px | 0.12–0.20em | Section eyebrows, category labels |
+| Data value | 13–15px | 0.02em | Prices, P&L, counts |
+| Caption / meta | 11–12px | 0.04em | Timestamps, secondary data |
 
-24
+### 3.3 Font Loading
 
-32
+```css
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+```
 
-48
+For production: self-host via `/public/fonts/` and swap `@import` for `@font-face` declarations.
 
-64
+### 3.4 Base Reset
 
-Use the spacing scale consistently.
+```css
+body {
+  font-family: var(--font-body); /* Inter */
+  background-color: #0B1220;
+  color: #F0F4F8;
+  -webkit-font-smoothing: antialiased;
+}
 
-Avoid arbitrary values.
+h1, h2, h3, .font-display {
+  font-family: var(--font-display); /* Space Grotesk */
+  letter-spacing: -0.02em;
+}
 
----
-
-Vertical Rhythm
-
-Every section should have enough spacing to feel visually independent.
-
-Avoid stacking cards tightly together.
-
----
-
-Maximum Content Width
-
-Readable content is preferred over full-width layouts.
-
-Long paragraphs should not span the entire screen.
-
----
-
-# 9. Cards
-
-Cards should group related information.
-
-Cards should never become miniature dashboards.
-
----
-
-Corner Radius
-
-12px
-
----
-
-Padding
-
-20–24px
+::selection {
+  background: #2CB1BC;
+  color: #0B1220;
+}
+```
 
 ---
 
-Shadow
+## 4. Spacing & Radius
 
-Very subtle.
+### 4.1 Border Radius
 
-Elevation should be minimal.
+Two values only. Remove all other radius values.
 
----
+| Token | Value | Use |
+|---|---|---|
+| `rounded-sm` / `rounded` / `rounded-md` | `12px` | Buttons, chips, small controls, tags |
+| `rounded-lg` / `rounded-xl` | `16px` | Cards, panels, dropdowns, modals |
+| `rounded-full` | `9999px` | Avatar chips, pill badges |
 
-Card Hierarchy
+The previous preset had `18px` and `22px` radius values — these are removed.
 
-Hero cards
+### 4.2 Spacing Reference
 
-↓
-
-Insight cards
-
-↓
-
-Metric cards
-
-↓
-
-Supporting cards
-
-Do not give every card equal visual weight.
+| Location | Value |
+|---|---|
+| Default card padding | 22–24px |
+| Signature Coach Card padding | 30–36px |
+| Page content max-width | 1040–1180px |
+| Section rhythm (vertical gap) | 26–36px |
 
 ---
 
-Interactive Cards
+## 5. Component Patterns
 
-Hover
+### 5.1 Signature Coach Card
 
-Subtle elevation
+The most important surface in the product. It carries the coaching voice — Hero Insight, coaching summaries, recommendations, pattern diagnosis. There is ONE Coach Card per screen. It is the only teal surface (aside from active nav and active period row).
 
-Selected
+```
+bg:            #0E1726  (slightly lighter than canvas)
+border:        rgba(44,177,188,0.20)
+border-radius: 16px
+gradient:      linear-gradient(150deg, rgba(44,177,188,0.07), transparent 60%)
+padding:       30–36px
 
-Accent border
+Interior anatomy (top to bottom):
+  [CI badge]   → small rounded pill, mono uppercase, teal border/text
+  [eyebrow]    → CATEGORY · DATE  (mono, 10px, 0.18em tracking, gray-500)
+  [statement]  → coaching text (font-display, 27–29px, gray-100)
+  [divider]    → border-divide
+  [footer]     → evidence count or secondary copy (mono, gray-400)
+```
 
-Soft background tint
+A shared `CoachCard` component implements this. Do not replicate this pattern inline across pages.
 
-Never rely on color alone.
+### 5.2 Neutral Card
 
----
+Default surface for all non-coaching content: metric summaries, tables, chart containers.
 
-# 10. Tables
+```
+bg:            gray-800  (#0F1A2C)
+border:        border-hair  (rgba(148,163,184,0.12))
+border-radius: 16px
+padding:       20–24px
+```
 
-Tables present evidence.
+No colored top-border, no left-accent border, no category color labels. All cards are the same surface; the content differentiates them.
 
-They are not the primary content.
+### 5.3 StatusTag
 
----
+Small mono pill for execution quality labels and account connection status.
 
-Default Density
+```
+font:    font-mono, 11px, uppercase, 0.14em tracking
+radius:  12px
+padding: 2px 8px
 
-Comfortable
+States:
+  gold  → text yellow-400, bg rgba(192,160,98,0.12),  border rgba(192,160,98,0.28)
+  red   → text red-400,    bg rgba(194,83,107,0.12),  border rgba(194,83,107,0.28)
+  green → text green-400,  bg rgba(47,158,104,0.12),  border rgba(47,158,104,0.28)
+```
 
-Avoid overly compact rows.
+### 5.4 Navigation (Side Nav)
 
----
+```
+Default item: gray-400 text, no background
+Hover:        gray-300 text, gray-750 fill
+Active:       gray-100 bold text, rgba(44,177,188,0.10) fill, rgba(44,177,188,0.22) border-left
+```
 
-Row Selection
+Active item uses a teal left-border accent. This is the second teal surface in the product (after the Coach Card).
 
-Hover
+### 5.5 Context Bar & Period Dropdown
 
-Subtle background
+```
+Context bar:    bg gray-850 (#0C1424)
+Dropdown panel: bg gray-750 (#16223A), border rgba(148,163,184,0.18), radius 16px
 
-Selected
+Period row:
+  Default:  gray-300 text, no background
+  Hover:    gray-100 text, gray-700 fill
+  Active:   teal dot indicator, rgba(44,177,188,0.08) fill, gray-100 bold text
+  Disabled: gray-600 text, not clickable (0-trade periods)
+```
 
-Persistent highlight
+### 5.6 WordMark
 
----
+```
+CAUTUS  → Space Grotesk, 600, white (gray-100), tracking 0.05em
+INSIGHT → Space Grotesk, 600, teal (indigo-600), tracking 0.42em
+```
 
-Sorting
+No other element in the product uses a tracking value as wide as 0.42em.
 
-Clearly indicate active sort.
+### 5.7 Trade Table
 
----
+```
+Row text:   font-mono for all data cells (P&L, price, time, count)
+            font-sans for trade labels / ticker
+P&L cell:  green-400 (positive) / red-400 (negative) — data only
+Winner row: rgba(47,158,104,0.04) tint (very subtle)
+Loser row:  rgba(194,83,107,0.04) tint (very subtle)
+Click:      opens TradeDetailPanel drawer
+```
 
-Columns
+### 5.8 Chart Containers
 
-Prioritize decision-making.
-
-Avoid exposing implementation details.
-
----
-
-# 11. Charts
-
-Charts provide evidence.
-
-Never conclusions.
-
----
-
-Every chart should answer one question.
-
-Examples:
-
-MAE/MFE
-
-Question:
-
-How much opportunity was available?
-
-Hold Time
-
-Question:
-
-How long do I typically hold trades?
-
-Heatmap
-
-Question:
-
-When do I perform best?
-
----
-
-Every chart should include:
-
-A one-sentence explanation.
-
-A one-sentence interpretation.
-
-Example:
-
-Most losing trades experienced less than $0.25 adverse movement before failing.
-
-Look for trades that exceed this threshold.
+All chart frames must have `overflow: hidden`. No horizontal scrollbars. Chart axis labels and legends use `font-mono`.
 
 ---
 
-Avoid decorative charts.
+## 6. Visual System Audit
 
-Every chart should influence a trading decision.
+### 6.1 Current State vs Target State
 
----
+| | **Current (live app)** | **Target (Phase 3H)** |
+|---|---|---|
+| **Canvas bg** | `#0d0d0d` (pure black) | `#0B1220` (cool navy) |
+| **Card surface** | `#121212` via `ink-bg-*` tokens | `#0F1A2C` via `gray-800` |
+| **Accent** | `#3b82f6` blue / `#58a6ff` indigo | `#2CB1BC` teal |
+| **Semantic positive** | `#22c55e` (bright green) | `#2F9E68` (muted green) |
+| **Semantic negative** | `#ef4444` (bright red) | `#C2536B` (muted rose-red) |
+| **Body font** | IBM Plex Mono (wrong) | Inter |
+| **Heading/statement font** | IBM Plex Sans or Space Grotesk — inconsistently applied | Space Grotesk (`font-display`) |
+| **Data font** | IBM Plex Mono (`font-mono`) — correct | IBM Plex Mono (`font-mono`) — no change |
+| **Radius** | Mixed: 14/18/20/22px | 12px (controls) / 16px (cards) only |
+| **Borders** | Solid gray colors or no border | Translucent slate (`rgba(148,163,184,0.12)`) |
+| **Token system** | Custom `ink-*` and `trade-*` in `cautus-insight/tailwind.config.ts` | Standard `gray-*` / `indigo-*` / `green-*` / `red-*` in `cautus-ui/tailwind.preset.js` |
+| **Font utilities** | `font-grotesk`, `font-inter`, `font-sans` (IBM Plex Sans) | `font-display` (Space Grotesk), `font-sans` (Inter), `font-mono` |
+| **Font loading** | Inline `style={{ fontFamily }}` scattered across components | Tailwind utility classes only |
 
-# 12. Icons
+### 6.2 Gap Analysis
 
-Icons reinforce meaning.
+**Gap 1 — Token System (High Impact, Low Risk)**
+- `cautus-ui/tailwind.preset.js` uses old pure-black ramp and indigo-as-blue
+- `cautus-insight/frontend/tailwind.config.ts` defines custom `ink-*` / `trade-*` tokens that override the preset
+- Fix: replace `tailwind.preset.js` with the handoff values; audit `tailwind.config.ts` for overrides to remove
 
-They do not replace text.
+**Gap 2 — Default Body Font (High Impact, Visually Obvious)**
+- Body renders IBM Plex Mono everywhere — most noticeable difference vs the mock
+- Fix: update `index.css` base reset to set Inter as body; apply `font-display` and `font-mono` explicitly
 
----
+**Gap 3 — Inline Font Styles (Medium Impact, Tedious)**
+- Many components use `style={{ fontFamily: '"IBM Plex Sans"...' }}` — not affected by the preset swap
+- Fix: replace with `className="font-sans"` or `className="font-display"` as appropriate
 
-Use icons sparingly.
+**Gap 4 — Custom Font Utilities (Low Risk, Cleanup)**
+- `font-grotesk` and `font-inter` in `tailwind.config.ts` overlap with the new preset's `font-display` / `font-sans`
+- Fix: remove custom utilities and update usages after preset lands
 
-Examples:
+**Gap 5 — Semantic Color Brightness (Visual, Low Risk)**
+- Current green/red are bright web colors; target values are softer
+- Handled entirely by the token swap — no component changes needed
 
-✓ Positive behavior
+**Gap 6 — Shared Primitives Missing (Medium Impact)**
+- `CoachCard` does not exist; each coaching surface has its own inline styling
+- `StatusTag` does not exist; execution quality labels use ad-hoc chips
+- Fix: build both in `cautus-ui/src/components/` in Phase 3H Phase 2
 
-⚠ Needs attention
+**Gap 7 — Chart Overflow (Low Frequency, Easy Fix)**
+- Some chart containers lack `overflow: hidden`
+- Fix: add `overflow-hidden` to chart frame wrappers in Phase 3H Phase 4
 
-📈 Improving
+### 6.3 Files Requiring Changes
 
-📉 Declining
-
----
-
-Avoid decorative iconography.
-
-Icons should improve scanning.
-
----
-
-# 13. Empty States
-
-Every empty state should teach.
-
-Not merely report.
-
-Bad
-
-"No data."
-
-Better
-
-"No trades matched this filter."
-
-Best
-
-"No trades matched this filter. Try expanding the date range or selecting another symbol."
-
-Every empty state should help the user recover.
-
-# 14. Copywriting System
-
-Every sentence in Cautus Insight should feel like it was written by an experienced trading mentor.
-
-The product should never sound like:
-
-- a monitoring dashboard
-- an alerting system
-- a brokerage platform
-- a data analytics tool
-
-The application should speak calmly, objectively, and constructively.
-
----
-
-## Coaching Voice
-
-The application should describe observations.
-
-Never judge the trader.
-
-Bad
-
-"You traded poorly."
-
-Better
-
-"This trade captured only 24% of the available move."
-
-Best
-
-"You exited early. Similar behavior appears in 68% of your winning trades."
+| File | Change Type | Phase |
+|---|---|---|
+| `cautus-ui/tailwind.preset.js` | Replace color ramp, accent, radii, border tokens | 3H-1 |
+| `cautus-insight/frontend/src/index.css` | Merge theme-fonts.css (Google import, CSS vars, base reset) | 3H-1 |
+| `cautus-insight/frontend/tailwind.config.ts` | Audit and remove overrides conflicting with new preset | 3H-1 |
+| `cautus-ui/src/components/CoachCard.tsx` | Create new shared primitive | 3H-2 |
+| `cautus-ui/src/components/StatusTag.tsx` | Create new shared primitive | 3H-2 |
+| `cautus-ui/src/components/Card.tsx` | Create or update neutral card primitive | 3H-2 |
+| `cautus-insight/frontend/src/components/AccountLayout.tsx` | Active nav pill — teal fill + border | 3H-2 |
+| `cautus-insight/frontend/src/components/ContextBar.tsx` | Period dropdown — navy panel, teal active row | 3H-2 |
+| `cautus-insight/frontend/src/components/WordMark.tsx` | Space Grotesk + teal INSIGHT | 3H-2 |
+| `cautus-insight/frontend/src/pages/HeroInsight.tsx` | Adopt CoachCard | 3H-2 |
+| `cautus-insight/frontend/src/components/CoachingPanel.tsx` | Adopt CoachCard | 3H-2 |
+| All pages with inline `style={{ fontFamily }}` | Replace with Tailwind classes | 3H-3 |
+| All pages: typography role pass | prose → `font-sans`, statements → `font-display`, data → `font-mono` | 3H-3 |
+| `MaeMfeScatter.tsx`, `HeatmapChart.tsx`, `HoldTimeChart.tsx` | `overflow-hidden` on frames | 3H-4 |
+| All pages: accent audit | Remove non-conforming color usage | 3H-4 |
 
 ---
 
-Always explain:
+## 7. Rollout Plan
 
-What happened
+Execute in this order. Do not skip stages.
 
-↓
+### Stage 1 — Tokens + Fonts (Phase 3H-1)
 
-Why it matters
+Replace `cautus-ui/tailwind.preset.js`. Merge `theme-fonts.css` into `index.css`. Commit.
 
-↓
+The app immediately reads navy surfaces, teal accents, soft semantic colors, and correct radii — before any component edits. This is the staging check: if the direction looks wrong, stop.
 
-What to do next
+### Stage 2 — Shared Primitives (Phase 3H-2)
 
-Never stop after reporting a metric.
+Build `CoachCard`, `StatusTag`, `Card`. Update nav active state. Update `ContextBar` dropdown. Update `WordMark`. Commit.
 
----
+These primitives propagate the visual language everywhere they are used. Most pages will look substantially correct after this stage.
 
-## Positive Reinforcement
+### Stage 3 — Typography Roles (Phase 3H-3)
 
-The application should reinforce good habits as often as it corrects mistakes.
+Move prose → Inter (`font-sans`), coaching statements/titles → Space Grotesk (`font-display`), keep data → IBM Plex Mono (`font-mono`). Remove inline `fontFamily` styles. Remove deprecated `font-grotesk` / `font-inter` custom utilities. Commit.
 
-Good coaching builds confidence.
+### Stage 4 — Screen by Screen + Accent Audit (Phase 3H-4)
 
-Examples
+Apply screen-by-screen against the reference mock (`~/Downloads/handoff/reference/mock.dc.html`). Order: Overview → Trade Cycles → Review → Behavior Patterns → Execution Quality → Settings → Upload/Empty/Auth.
 
-"You respected your stop loss on every losing trade today."
-
-"Your entries continue to improve."
-
-"Your position sizing was disciplined throughout the session."
-
-"You held your winners longer than your recent average."
-
-Positive reinforcement should never feel generic.
-
-It should always reference observable evidence.
+Close with the accent audit: grep every color utility and confirm each one satisfies the accent rule. Delete or replace any that do not.
 
 ---
 
-## Constructive Coaching
+## 8. Guardrails
 
-Avoid emotionally charged language.
+These rules apply in all phases. Violating any of them requires a documented exception.
 
-Avoid blame.
-
-Avoid criticism.
-
-Examples
-
-Instead of:
-
-"You made a mistake."
-
-Say:
-
-"This decision reduced the available profit."
-
-Instead of:
-
-"You chased."
-
-Say:
-
-"This entry occurred significantly above your typical entry range."
-
-Instead of:
-
-"Bad exit."
-
-Say:
-
-"The trade exited before momentum weakened."
+1. **One teal moment per screen.** Coach Card + active nav pill + active period row. Nothing else.
+2. **Red only on negative money.** Not on errors, warnings, or emphasis.
+3. **Green only on positive money or Connected status.** Not on success messages.
+4. **Gold only on caution or Developing patterns.** Not on info callouts.
+5. **Two radii only.** `12px` for controls, `16px` for containers.
+6. **No shadows or glows** beyond the single Coach Card gradient wash and existing depth shadows.
+7. **When a screen feels flat,** add space and larger type — not more color.
+8. **When unsure about a color,** make it `gray-400` (`#94A3B8`). That is almost always correct.
 
 ---
 
-## Confidence
+## 9. Component Mapping Matrix
 
-Recommendations should communicate confidence.
+Every component in the live app mapped to its target visual pattern and the shared primitive that implements it. Produced during Phase 0 to confirm the handoff was understood before code was touched.
 
-High confidence
-
-Observed repeatedly.
-
-Medium confidence
-
-Appears to be emerging.
-
-Low confidence
-
-Insufficient history.
-
-Never overstate certainty.
+Read across: **Current Component → Target Visual Pattern → Reusable Primitive**
 
 ---
 
-## Recommendation Format
+### Global Layout
 
-Every recommendation should contain four parts.
-
-Observation
-
-↓
-
-Evidence
-
-↓
-
-Recommendation
-
-↓
-
-Expected Benefit
-
-Example
-
-Observation
-
-Winning trades are exited significantly earlier than available opportunity.
-
-Evidence
-
-Average Exit Efficiency is 42%.
-
-Recommendation
-
-Allow winning trades additional room before exiting.
-
-Expected Benefit
-
-Capturing only 10% more of each winner would materially improve profitability.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `AccountLayout.tsx` | Side nav: active = `bg-ink-strong` solid dark fill, no teal indicator | Active pill: `rgba(44,177,188,0.10)` fill + `rgba(44,177,188,0.22)` left-border, white bold label | `AccountLayout` (restyled — no new primitive) |
+| `ContextBar.tsx` | Dropdown: `#141414` bg, `#2a2a2a` border, active dot = `bg-trade-select` (blue) | Dropdown: `#16223A` bg, translucent slate border, active dot = teal, teal row tint | `ContextBar` (restyled — no new primitive) |
+| `WordMark.tsx` | `font-grotesk` custom utility, INSIGHT tracking `0.14em` | `font-display` (Space Grotesk), INSIGHT tracking `0.42em` | `WordMark` (restyled — no new primitive) |
 
 ---
 
-## Hero Insight Style
+### Overview (`OverviewPage.tsx`)
 
-Hero Insights should:
-
-Lead with the conclusion.
-
-Use plain English.
-
-Reference evidence.
-
-Never exceed three sentences.
-
-Never become a paragraph of metrics.
-
-Example
-
-Good
-
-Today's profits were driven by disciplined entries. Most losses came from holding losers too long.
-
-Poor
-
-Win Rate 61%.
-
-Profit Factor 1.48.
-
-Average Hold 4m.
-
-MAE 0.31.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `HeroInsight.tsx` | Inline styled: amber eyebrow (`rgba(245,158,11,0.6)`), amber border gradient, Inter statement 24px, `#0d0d0d` bg | Signature Coach Card: teal border + wash, CI badge, mono eyebrow, Space Grotesk statement 27–29px | `CoachCard` |
+| `SummaryStrip.tsx` | `#121212` bg, solid `#242424` border, accent-colored section labels | Neutral card: `gray-800` bg, `border-hair`, no colored labels | `Card` |
+| `TradeTable.tsx` | P&L green/red, mono data — direction correct; colors are bright web values | Same layout, semantic colors updated by token swap (`green-400` → `#2F9E68`, `red-400` → `#C2536B`) | `TradeTable` (token swap only) |
 
 ---
 
-## Takeaway Style
+### Trade Cycles (`TradeCyclesPage.tsx`)
 
-Every review ends with one Takeaway.
-
-One sentence.
-
-Actionable.
-
-Memorable.
-
-Examples
-
-Tomorrow, focus on protecting losing trades earlier.
-
-Continue trusting your entries while improving your exits.
-
-Your discipline improved today. Keep repeating it.
-
-Never provide multiple Takeaways.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `HeroInsight.tsx` | See Overview | Signature Coach Card | `CoachCard` |
+| Cycle row containers | Inline `#0d0d0d` bg, solid dark border | Neutral card: `gray-800` bg, `border-hair` | `Card` |
+| `TradeTable.tsx` | See Overview | Token swap only | `TradeTable` |
 
 ---
 
-## Terminology
+### Review (`ReviewPage.tsx`)
 
-Prefer
-
-Trade Cycle
-
-Avoid
-
-Trade Record
-
----
-
-Prefer
-
-Observation
-
-Avoid
-
-Warning
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `TodaysFocus.tsx` | `#0e0e0e` bg, amber left-border (`rgba(245,158,11,0.4)`), 15px body text | Signature Coach Card: teal border + wash, Space Grotesk statement | `CoachCard` |
+| `PracticeRule.tsx` | `#0e0e0e` bg, amber left-border (`rgba(245,158,11,0.4)`), 14px body | Signature Coach Card | `CoachCard` |
+| `TopThreeFindings.tsx` | `rgba(255,255,255,0.04)` bg, `rgba(255,255,255,0.1)` border, white numbered bullets, mono evidence line | Neutral card grid: `gray-800` bg, `border-hair`; number bullets = `gray-700` fill | `Card` |
+| `RecentTrend.tsx` | `#111111` bg, `#1e1e1e` solid border, accent label | Neutral card: `gray-800` bg, `border-hair`, label → `gray-500` | `Card` |
 
 ---
 
-Prefer
+### Behavior Patterns (`BiggestLeaksPage.tsx`)
 
-Recommendation
-
-Avoid
-
-Alert
-
----
-
-Prefer
-
-Practice
-
-Avoid
-
-Fix
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `HeroInsight.tsx` | See Overview | Signature Coach Card | `CoachCard` |
+| `PatternSummaryPanel.tsx` | Per-pattern accent color (not teal-constrained) via `accent` prop: colored title, colored icon, `accent22` border, `#0d0d0d` bg | Neutral card: `gray-800` bg, `border-hair`; pattern title and icon → `gray-300`; only P&L values keep semantic color | `Card` |
+| `BiggestLeaks.tsx` | Pattern cards with inline accent colors on non-money elements | Neutral card; red only on `−$` values; leak markers and trade-count badges → slate | `Card` |
 
 ---
 
-Prefer
+### Execution Quality (`ExecutionQualityPage.tsx`)
 
-Takeaway
-
-Avoid
-
-Conclusion
-
----
-
-Prefer
-
-Pattern
-
-Avoid
-
-Issue
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `HeroInsight.tsx` | See Overview | Signature Coach Card | `CoachCard` |
+| `ExecutionSummary.tsx` | 3-column grid; quality grade = inline `gradeColor` (`#22c55e` / `#f59e0b` / `#ef4444`); inline `fontFamily: Inter`; `rgba(255,255,255,0.03)` bg | Neutral card grid; grade label → `StatusTag` (green/gold/red); font via preset | `Card` + `StatusTag` |
+| `MaeMfeScatter.tsx` | Chart container — missing `overflow: hidden` | Same chart, add `overflow-hidden` to outer frame | existing + `overflow-hidden` |
+| `HoldTimeChart.tsx` | Chart container — missing `overflow: hidden` | Same chart, add `overflow-hidden` to outer frame | existing + `overflow-hidden` |
+| `HeatmapChart.tsx` | Chart container — missing `overflow: hidden` | Same chart, add `overflow-hidden` to outer frame | existing + `overflow-hidden` |
 
 ---
 
-Prefer
+### Settings (`SettingsPage.tsx`)
 
-Opportunity
-
-Avoid
-
-Problem
-
----
-
-## Numbers
-
-Numbers should support the message.
-
-Never replace the message.
-
-Bad
-
-Exit Efficiency
-
-41%
-
-Good
-
-You captured 41% of the available move.
-
-Better
-
-You consistently leave nearly half of profitable moves unrealized.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| Account card | `#111111` bg, `#1e1e1e` solid border; status badge = ad-hoc `#1a1a1a` bg pill, no semantic color | Neutral card: `gray-800` bg, `border-hair`; status badge → `StatusTag` (green=Active/Connected) | `Card` + `StatusTag` |
+| Import history row | `#111111` bg, `#1e1e1e` solid border | Neutral card: `gray-800` bg, `border-hair` | `Card` |
+| Dividers | `#1a1a1a` solid bg | `border-divide` (`rgba(148,163,184,0.08)`) | Token swap only |
 
 ---
 
-## Celebrate Improvement
+### Upload & Empty States (`UploadPage.tsx`, `EmptyJournal.tsx`, `UploadZone.tsx`)
 
-The application should recognize progress.
-
-Examples
-
-Exit management has improved over the last three weeks.
-
-This behavior appears less frequently than last month.
-
-You're beginning to hold winners more consistently.
-
-Improvement deserves the same visual weight as correction.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `UploadZone.tsx` | Dashed dropzone; spinner = `text-trade-select` (blue) | Same layout; spinner → `text-indigo-600` (teal); dashed border → `border-ghost` | `UploadZone` (token swap only) |
+| `EmptyJournal.tsx` | Uses `font-grotesk` / `font-inter` custom utilities; `#0d0d0d` feature card bg | Update to `font-display` / `font-sans`; card bg → `gray-800`, `border-hair` | `Card` + typography update |
 
 ---
 
-# 15. Motion & Interaction
+### Auth (`SignInPage.tsx`, `SignUpPage.tsx`)
 
-Motion should communicate state.
-
-Never decoration.
-
-Animations should feel immediate and subtle.
-
-Recommended duration
-
-150–250ms
-
-Avoid:
-
-Bounce
-
-Elastic
-
-Overshoot
-
-Large scaling effects
-
-The interface should feel stable.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| Form container | Inline dark bg / solid border | Neutral card: `gray-800`, `border-hair` | `Card` |
+| Submit button | `bg-trade-select` (blue) | `bg-indigo-600` (teal) — Insight action | token swap only |
 
 ---
 
-Hover
+### Trade Detail Drawer
 
-Reveal interactivity.
-
-Not surprise.
-
----
-
-Selection
-
-Selection should remain visible.
-
-Users should never lose context.
+| Current Component | Current Pattern | Target Visual Pattern | Primitive |
+|---|---|---|---|
+| `ResizableDrawer.tsx` | Drawer shell | No structural change; bg → `gray-800`/`gray-850` via token swap | Token swap only |
+| `TradeDetailPanel.tsx` | Dense detail layout — correct posture | No structural change; colors via token swap | Token swap only |
+| `CandleChart.tsx` | Chart — may overflow | Add `overflow-hidden` to chart frame | existing + `overflow-hidden` |
+| `ExpandedChartModal.tsx` | Modal overlay | No structural change | Token swap only |
 
 ---
 
-Drawer
+### Not in Phase 3H Scope
 
-Opening:
-
-Slide smoothly.
-
-Closing:
-
-Return focus to the originating component.
-
-The drawer should feel contextual rather than modal.
-
----
-
-Loading
-
-Loading should communicate progress.
-
-Prefer skeleton loaders over spinners.
+| Component | Reason |
+|---|---|
+| `landing/CoachingPanel.tsx` | Marketing landing page — separate visual context |
+| `landing/ExampleInsightCard.tsx` | Marketing landing page |
+| `landing/CTASection.tsx` | Marketing landing page |
+| `landing/TransformationSection.tsx` | Marketing landing page |
+| `landing/SectionLabel.tsx` | Marketing landing page |
+| `landing/LandingFooter.tsx` | Marketing landing page |
 
 ---
 
-# 16. Accessibility
+### Primitive Summary
 
-Accessibility is part of product quality.
+New shared components to build in `cautus-ui/src/components/` during Phase 3H-2:
 
-Not a future enhancement.
-
----
-
-Contrast
-
-Meet WCAG AA minimums.
-
----
-
-Keyboard Navigation
-
-All interactive elements must be keyboard accessible.
-
----
-
-Focus States
-
-Always visible.
-
-Never rely solely on color.
-
----
-
-Icons
-
-Never communicate meaning using icons alone.
-
-Always pair with text.
-
----
-
-Charts
-
-Every chart should include a textual interpretation.
-
-Charts are evidence.
-
-The interpretation is the product.
-
----
-
-# 17. Design Guardrails
-
-These rules protect Cautus Insight from becoming another analytics dashboard.
-
----
-
-Do not add metrics without purpose.
-
-Every metric should support a coaching conclusion.
-
----
-
-Do not create pages around visualizations.
-
-Create pages around trader questions.
-
----
-
-Do not create components because space exists.
-
-Create components because understanding improves.
-
----
-
-Do not duplicate responsibility.
-
-One component.
-
-One purpose.
-
----
-
-Do not emphasize everything.
-
-Visual hierarchy is intentional.
-
----
-
-Do not replace plain English with financial terminology.
-
-The application should be understandable by an improving trader.
-
----
-
-Every page should answer:
-
-What should I do differently tomorrow?
-
-If it cannot answer that question, reconsider whether the page belongs.
-
----
-
-# 18. Design Review Checklist
-
-Before merging any UI change, verify:
-
-□ Does the page have one Hero Insight?
-
-□ Does the Hero Insight appear before charts?
-
-□ Does every chart support a conclusion?
-
-□ Does every recommendation cite evidence?
-
-□ Does the page answer exactly one trader question?
-
-□ Is an existing component reused before creating a new one?
-
-□ Is typography consistent with the hierarchy?
-
-□ Is color communicating meaning rather than decoration?
-
-□ Does the user leave with one memorable lesson?
-
-If any answer is "No," the design should be reconsidered before implementation.
+| Primitive | Used By | What it replaces |
+|---|---|---|
+| `CoachCard` | `HeroInsight`, `TodaysFocus`, `PracticeRule` (all 3 screens that use them) | Per-component inline amber card styling |
+| `StatusTag` | `ExecutionSummary`, `SettingsPage` | Inline `gradeColor` dict + ad-hoc status pills |
+| `Card` | `SummaryStrip`, `TopThreeFindings`, `RecentTrend`, `PatternSummaryPanel`, `BiggestLeaks`, account/import cards, form containers | Per-component inline `#111111` bg + solid border patterns |
