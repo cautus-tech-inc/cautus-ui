@@ -1,18 +1,24 @@
 /*
- * Cautus base reset
+ * Cautus base reset — Phase 3H (navy + teal)
  * Import this AFTER your @tailwind directives in the app's index.css.
  *
  * Uses direct hex values (not @apply) so this file has no dependency
  * on any app's Tailwind config — it works as a plain CSS import.
+ * Unlayered intentionally: wins over any @layer base rules.
  */
 
 body {
-  background-color: #000000;   /* gray-950 */
-  color: #e6e8ec;              /* gray-200 */
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  background-color: #0B1220;   /* gray-900 — cool navy app background */
+  color: #F0F4F8;              /* gray-200 — near-primary text */
+  font-family: "Inter", system-ui, sans-serif;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 * {
@@ -20,6 +26,6 @@ body {
 }
 
 ::selection {
-  background: rgba(88, 166, 255, 0.35); /* indigo-500 at 35% */
-  color: #fff;
+  background: #2CB1BC;
+  color: #0B1220;
 }
